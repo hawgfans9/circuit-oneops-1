@@ -37,7 +37,7 @@ describe "Azure SQL" do
             azure_sql_client = Fog::SQL::AzureRM.new(@spec_utils.get_azure_creds)
             resource_group_name = @spec_utils.get_resource_group_name
             #verify these lines with Aaron
-            primary_server_name = @spec_utils.get_primary_server_name
+            primary_server_name = @spec_utils.get_primary_sql_server_name
             primary_server_name = $node['name']
             puts("\t\tLooking for #{primary_server_name} in Azure.")    
             sql_server = azure_sql_client.get_sql_server(resource_group_name, primary_server_name)
@@ -54,7 +54,7 @@ describe "Azure SQL" do
             azure_sql_client = Fog::SQL::AzureRM.new(@spec_utils.get_azure_creds)
             resource_group_name = @spec_utils.get_resource_group_name
             #verify these lines with Aaron
-            primary_server_name = @spec_utils.get_primary_server_name
+            primary_server_name = @spec_utils.get_primary_sql_server_name
             primary_server_name = $node['name']
       
             fwrules = azure_sql_client.list_firewall_rules(resource_group_name, primary_server_name)
@@ -68,7 +68,7 @@ describe "Azure SQL" do
             azure_sql_client = Fog::SQL::AzureRM.new(@spec_utils.get_azure_creds)
             resource_group_name = @spec_utils.get_resource_group_name
             #verify these lines with Aaron
-            primary_server_name = @spec_utils.get_primary_server_name
+            primary_server_name = @spec_utils.get_primary_sql_server_name
             primary_server_name = $node['name']
             puts("\t\tLooking for #{primary_server_name}'s auditing status on server.")      
             
@@ -87,7 +87,7 @@ describe "Azure SQL" do
       
             resource_group_name = @spec_utils.get_resource_group_name
             #verify these lines with Aaron
-            primary_server_name = @spec_utils.get_primary_server_name
+            primary_server_name = @spec_utils.get_primary_sql_server_name
             primary_server_name = $node['name']
             db_name = $node['db_name']
             
@@ -106,7 +106,7 @@ describe "Azure SQL" do
             azure_sql_client = Fog::SQL::AzureRM.new(@spec_utils.get_azure_creds)
             resource_group_name = @spec_utils.get_resource_group_name
             #verify these lines with Aaron
-            primary_server_name = @spec_utils.get_primary_server_name
+            primary_server_name = @spec_utils.get_primary_sql_server_name
             primary_server_name = $node['name']
             db_name = $node['dbname']
             puts("\t\tLooking for #{primary_server_name}:#{db_name}'s auditing status on server.")      
@@ -123,8 +123,8 @@ describe "Azure SQL" do
             azure_sql_client = Fog::SQL::AzureRM.new(@spec_utils.get_azure_creds)
             resource_group_name = @spec_utils.get_resource_group_name
             #verify these lines with Aaron
-            primary_server_name = @spec_utils.get_primary_server_name
-            primary_server_name = @spec_utils.get_secondary_server_name
+            primary_server_name = @spec_utils.get_primary_sql_server_name
+            primary_server_name = @spec_utils.get_secondary_sql_server_name
             
             primary_server_name = $node['name']
             db_name = $node['dbname']

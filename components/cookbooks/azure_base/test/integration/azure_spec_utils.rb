@@ -137,11 +137,59 @@ class AzureSpecUtils
 
     server_name
   end
+
   def get_lb_name
     platform_name = @node['workorder']['box']['ciName']
     plat_name = platform_name.gsub(/-/, '').downcase
     lb_name = "lb-#{plat_name}"
 
     lb_name
+  end
+
+ #pflucas additions
+ def get_primary_sql_server_name
+  rfcCi = get_rfc_ci
+  nsPathParts = get_ns_path_parts
+
+  server_name = @node['workorder']['box']['pciName']+'-'+nsPathParts[3]+'-'+nsPathParts[2]+'-'+nsPathParts[1]+'-'+ rfcCi["pciId"].to_s
+  if(server_name.size > 63)
+    server_name = server_name.slice(0,63-(rfcCi["pciId"].to_s.size)-1)+'-'+ rfcCi["pciId"].to_s
+  end
+
+  server_name
+end
+
+def get_secondary_server_name
+  rfcCi = get_rfc_ci
+  nsPathParts = get_ns_path_parts
+
+  server_name = @node['workorder']['box']['sciName']+'-'+nsPathParts[3]+'-'+nsPathParts[2]+'-'+nsPathParts[1]+'-'+ rfcCi["sciId"].to_s
+  if(server_name.size > 63)
+    server_name = server_name.slice(0,63-(rfcCi["sciId"].to_s.size)-1)+'-'+ rfcCi["sciId"].to_s
+  end
+
+  server_name
+end
+
+def get_db_name
+  rfcCi = get_rfc_ci
+  nsPathParts = get_ns_path_parts
+
+  db_name = @node['workorder']['box']['dbName'].to_s
+  db_name
+end
+
+
+  def is_sql_audit_enabled
+    #revisit @node object
+    set_attributes_on_node_required_for_sql_auditing
+    sql_server_client = Fog::SQL::AzureRM.new(@node)
+    express_route_enabled = sql_server_client.get_sql_server['express_route_enabled']
+
+    if(express_route_enabled == "true")
+      return true
+    else
+      false
+    end
   end
 end
